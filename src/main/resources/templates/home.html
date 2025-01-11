@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User After Login</title>
+</head>
+<body>
+<h1>User after login</h1>
+<a href="/logout">Logout</a>
+
+<h2> Name: <span th:text="${user.fullName}"></span> </h2>
+<h2> Email: <span th:text="${user.email}"></span> </h2>
+<h2> Address: <span th:text="${user.address}"></span></h2>
+
+
+</body>
+</html>
