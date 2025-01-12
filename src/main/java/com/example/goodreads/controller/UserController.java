@@ -1,34 +1,49 @@
 package com.example.goodreads.controller;
 
-import com.example.goodreads.repository.UserRepository;
 import com.example.goodreads.model.UserDtls;
+import com.example.goodreads.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-
-import java.security.Principal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private UserRepository userRepo;
-
-    @ModelAttribute
-    private void userDetails(Model m, Principal p) {
-        String email = p.getName();
-        UserDtls user = userRepo.findByEmail(email);
-
-        m.addAttribute("user", user);
-    }
-
+    private UserService userService;
 
     @GetMapping("/")
-    public String home(){
+    public String userProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String email = userDetails.getUsername();
+        UserDtls user = userService.getUserByEmail(email);
+        model.addAttribute("user", user);
         return "home";
+    }
+
+    @GetMapping("/edit")
+    public String editUserProfileForm(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String email = userDetails.getUsername();
+        UserDtls user = userService.getUserByEmail(email);
+        model.addAttribute("user", user);
+        return "user-edit";
+    }
+
+    @PostMapping("/edit")
+    public String editUserProfile(UserDtls user, @AuthenticationPrincipal UserDetails userDetails) {
+        String email = userDetails.getUsername();
+        UserDtls existingUser = userService.getUserByEmail(email);
+
+        existingUser.setFullName(user.getFullName());
+        existingUser.setAddress(user.getAddress());
+
+        userService.updateUser(existingUser);
+
+        return "redirect:/user/";
     }
 }

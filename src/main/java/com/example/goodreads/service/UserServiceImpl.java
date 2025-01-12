@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
@@ -27,7 +27,13 @@ public class UserServiceImpl implements UserService{
         return userRepo.existsByEmail(email);
     }
 
+    @Override
+    public UserDtls getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 
-
-
+    @Override
+    public void updateUser(UserDtls user) {
+        userRepo.save(user);
+    }
 }

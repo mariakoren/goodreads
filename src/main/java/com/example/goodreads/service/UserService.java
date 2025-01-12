@@ -4,7 +4,11 @@ import com.example.goodreads.model.UserDtls;
 
 public interface UserService {
 
-    public UserDtls createUser(UserDtls user);
+    UserDtls createUser(UserDtls user);
 
-    public boolean checkEmail(String email);
+    boolean checkEmail(String email);
+
+    UserDtls getUserByEmail(String email);
+
+    void updateUser(UserDtls user);
 }
