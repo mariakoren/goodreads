@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Deletion</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>Are you sure you want to delete your account?</h1>
+
+
+<form action="#" th:action="@{/user/delete}" method="post">
+  <button type="submit">Yes, Delete My Account</button>
+</form>
+
+
+<form action="#" th:action="@{/user/}" method="get">
+  <button type="submit">No, Keep My Account</button>
+</form>
+
+</body>
+</html>

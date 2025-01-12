@@ -19,15 +19,11 @@
     </div>
     <a th:href="@{/user/edit}">Edit Profile</a>
 
-    <!-- Dodanie formularza usuwania konta -->
-    <form action="#" th:action="@{/user/delete}" method="post">
+    <!-- Formularz do przekierowania na stronę potwierdzenia -->
+    <form action="#" th:action="@{/user/confirmDelete}" method="get">
         <button type="submit">Delete Account</button>
     </form>
 
-    <!-- Komunikat o usunięciu konta -->
-    <div th:if="${deleted}">
-        <p>Your account has been successfully deleted.</p>
-    </div>
 </section>
 
 </body>

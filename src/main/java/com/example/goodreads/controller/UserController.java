@@ -48,6 +48,16 @@ public class UserController {
         return "redirect:/user/";
     }
 
+    @GetMapping("/confirmDelete")
+    public String confirmDelete() {
+        return "confirm-delete";
+    }
+
+    @GetMapping("/afterdelete")
+    public String afterDelete() {
+        return "after-delete";
+    }
+
     @PostMapping("/delete")
     public String deleteAccount(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -58,6 +68,6 @@ public class UserController {
         }
 
         model.addAttribute("deleted", true);
-        return "redirect:/";
+        return "redirect:/user/afterdelete";
     }
 }
