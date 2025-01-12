@@ -5,7 +5,6 @@
   <title>Lista Książek</title>
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="/css/header.css">
-
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -22,6 +21,7 @@
     <th>Tytuł</th>
     <th>Autor</th>
     <th>ISBN</th>
+    <th>Akcje</th>
   </tr>
   </thead>
   <tbody>
@@ -29,6 +29,12 @@
     <td th:text="${book.title}"></td>
     <td th:text="${book.author}"></td>
     <td th:text="${book.isbn}"></td>
+    <td>
+
+      <a th:href="@{/books/{id}(id=${book.id})}">
+        <button type="button">Wyświetl szczegóły</button>
+      </a>
+    </td>
   </tr>
   </tbody>
 </table>

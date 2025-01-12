@@ -13,6 +13,8 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
+    private int rating;
+    private String comments;
 
     // Gettery i settery
     public Long getId() {
@@ -45,5 +47,21 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Details</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>Book Details</h1>
+<p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+<p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+
+<a href="/books/">Back to list</a>
+</body>
+</html>
