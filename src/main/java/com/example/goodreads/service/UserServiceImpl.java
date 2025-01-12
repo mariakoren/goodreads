@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -37,8 +39,21 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
-    // Nowa metoda usuwania użytkownika
     public void deleteUser(int userId) {
         userRepo.deleteById(userId);
     }
+
+    public List<UserDtls> findAllUsers() {
+        return userRepo.findAll();
+    }
+
+    public void deleteUserById(Integer id) {
+        userRepo.deleteById(id);
+    }
+
+    public List<UserDtls> findUsersByRole(String role) {
+        return userRepo.findByRole(role);
+    }
+
+
 }

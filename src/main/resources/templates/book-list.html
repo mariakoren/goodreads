@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <title>Lista Książek</title>
   <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/header.css">
+
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <h1>Lista Książek</h1>
 <form action="/books/search" method="get">
   <label for="title">Szukaj po tytule:</label>
