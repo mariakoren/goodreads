@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
@@ -12,9 +12,9 @@
 
 <section>
 
-    <div th:if="${param.error}">Invalid username & password</div>
+    <div class="error" th:if="${param.error}">Invalid username & password</div>
 
-    <div th:if="${param.logout}">Logout Successfully</div>
+    <div class="success" th:if="${param.logout}">Logout Successfully</div>
 
 
     <form action="/login" method="post" >
@@ -27,7 +27,7 @@
 
             <div>
                 <label>Enter Password</label>
-                <input type="text" name="password" class="form-control">
+                <input type="password" name="password" class="form-control">
             </div>
 
             <div>

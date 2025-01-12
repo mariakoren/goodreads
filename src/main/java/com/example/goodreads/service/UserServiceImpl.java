@@ -26,4 +26,8 @@ public class UserServiceImpl implements UserService{
     public boolean checkEmail(String email) {
         return userRepo.existsByEmail(email);
     }
+
+
+
+
 }

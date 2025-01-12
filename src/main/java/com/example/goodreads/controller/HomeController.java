@@ -31,25 +31,24 @@ public class HomeController {
     }
 
     @PostMapping("/createuser")
-    public String createUser(@ModelAttribute UserDtls user, HttpSession session ) {
-
-        boolean f = userService.checkEmail(user.getEmail());
-
-        if (f) {
-            session.setAttribute("msg", "email is already exists");
+    public String createUser(@ModelAttribute UserDtls user, HttpSession session) {
+        String emailRegex = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        if (!user.getEmail().matches(emailRegex)) {
+            session.setAttribute("msg", "Invalid email format");
+            return "redirect:/register";
+        }
+        boolean emailExists = userService.checkEmail(user.getEmail());
+        if (emailExists) {
+            session.setAttribute("msg", "Email already exists");
         } else {
-            UserDtls userDtls=userService.createUser(user);
-            if (userDtls!=null){
-                session.setAttribute("msg", "register successfully");
-
+            UserDtls userDtls = userService.createUser(user);
+            if (userDtls != null) {
+                session.setAttribute("msg", "Registered successfully");
             } else {
-                session.setAttribute("msg", "something went wrong");
-
+                session.setAttribute("msg", "Something went wrong");
             }
-
         }
 
         return "redirect:/register";
-
     }
 }

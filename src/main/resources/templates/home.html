@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User After Login</title>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-<h1>User after login</h1>
+<div th:replace="~{fragments/header :: header}"></div>
+
 <a href="/logout">Logout</a>
+<section>
+    <h1>User Profile</h1>
+    <div>
+        <h2>Name: <span th:text="${user.fullName}"></span></h2>
+        <h2>Email: <span th:text="${user.email}"></span></h2>
+        <h2>Address: <span th:text="${user.address}"></span></h2>
+    </div>
 
-<h2> Name: <span th:text="${user.fullName}"></span> </h2>
-<h2> Email: <span th:text="${user.email}"></span> </h2>
-<h2> Address: <span th:text="${user.address}"></span></h2>
-
+</section>
 
 </body>
 </html>
