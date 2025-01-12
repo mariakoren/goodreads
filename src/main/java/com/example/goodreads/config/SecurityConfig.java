@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -33,6 +33,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return new CustomSuccessHandler();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -43,7 +48,7 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/signin")                          // Własna strona logowania
                 .loginProcessingUrl("/login")                   // URL, na który wysyłane są dane logowania
-                .defaultSuccessUrl("/user/")                    // Strona po udanym logowaniu
+                .successHandler(customSuccessHandler())          // Użycie niestandardowego handlera
                 .and()
                 .csrf().disable();                               // Wyłączenie CSRF (jeśli aplikacja nie używa sesji)
 
