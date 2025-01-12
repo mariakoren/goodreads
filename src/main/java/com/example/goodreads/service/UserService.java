@@ -11,4 +11,6 @@ public interface UserService {
     UserDtls getUserByEmail(String email);
 
     void updateUser(UserDtls user);
+
+    void deleteUser(int userId);
 }

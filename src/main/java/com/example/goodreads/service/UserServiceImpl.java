@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDtls user) {
         userRepo.save(user);
     }
+
+    // Nowa metoda usuwania użytkownika
+    public void deleteUser(int userId) {
+        userRepo.deleteById(userId);
+    }
 }

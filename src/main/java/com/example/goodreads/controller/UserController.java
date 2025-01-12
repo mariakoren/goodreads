@@ -4,6 +4,7 @@ import com.example.goodreads.model.UserDtls;
 import com.example.goodreads.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,5 +46,18 @@ public class UserController {
         userService.updateUser(existingUser);
 
         return "redirect:/user/";
+    }
+
+    @PostMapping("/delete")
+    public String deleteAccount(Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserDtls user = userService.getUserByEmail(email);
+
+        if (user != null) {
+            userService.deleteUser(user.getId());
+        }
+
+        model.addAttribute("deleted", true);
+        return "redirect:/";
     }
 }

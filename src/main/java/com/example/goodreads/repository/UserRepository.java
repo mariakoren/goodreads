@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<UserDtls, Integer> {
 
     public UserDtls findByEmail(String email);
 
+    public void deleteById(Integer id);
+
 }
