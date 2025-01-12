@@ -85,16 +85,15 @@ button:hover {
     background-color: #560bad;
 }
 
-/* Styl dla komunikatów o błędach i sukcesie */
 .error {
-    color: #ff4d4d; /* Czerwony kolor dla błędnych danych */
+    color: #ff4d4d;
     font-size: 1.2rem;
     margin-top: 1rem;
     text-align: center;
 }
 
 .success {
-    color: #28a745; /* Zielony kolor dla komunikatu o wylogowaniu */
+    color: #28a745;
     font-size: 1.2rem;
     margin-top: 1rem;
     text-align: center;
