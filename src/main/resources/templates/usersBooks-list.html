@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users Books List</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>Users Books</h1>
+
+
+<table>
+  <thead>
+  <tr>
+    <th>Book Title</th>
+    <th>Author</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="book : ${allBooks}">
+    <td th:text="${book.title}"></td>
+    <td th:text="${book.author}"></td>
+    <td th:text="${bookStatuses[book.id]}"></td>
+    <td>
+      <form th:action="@{/usersBooks/updateStatus}" method="post">
+        <input type="hidden" th:value="${book.id}" name="bookId">
+        <input type="hidden" th:value="${userId}" name="userId">
+        <button type="submit" name="newStatus" value="READED">Zaznacz jako przeczytana</button>
+        <button type="submit" name="newStatus" value="WANT_READ">Chętnie przeczytam</button>
+        <button type="submit" name="newStatus" value="UNREAD">Nieprzeczytane</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/user/">Go Back</a>
+</body>
+</html>

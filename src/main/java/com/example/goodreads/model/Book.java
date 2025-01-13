@@ -12,10 +12,12 @@ public class Book {
     private String author;
     private String isbn;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL) // Ustawienie relacji 1:N z Comment
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<UsersBook> usersBooks;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    // Gettery i Settery
     public Long getId() {
         return id;
     }
@@ -46,6 +48,14 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public List<UsersBook> getUsersBooks() {
+        return usersBooks;
+    }
+
+    public void setUsersBooks(List<UsersBook> usersBooks) {
+        this.usersBooks = usersBooks;
     }
 
     public List<Comment> getComments() {
