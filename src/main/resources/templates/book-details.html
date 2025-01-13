@@ -12,6 +12,36 @@
 <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
 <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
 
+<h2>Comments</h2>
+<div th:if="${comments != null}">
+    <div th:each="comment : ${comments}">
+        <p><strong>Rating:</strong> <span th:text="${comment.rating}"></span></p>
+        <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
+        <hr/>
+    </div>
+</div>
+<div th:if="${comments == null or comments.size() == 0}">
+    <p>No comments available for this book.</p>
+</div>
+
+<h2>Add a Comment</h2>
+<form action="/books/addComment" method="post">
+    <input type="hidden" name="bookId" th:value="${book.id}" />
+    <label for="content">Comment:</label>
+    <textarea id="content" name="content" required></textarea><br>
+
+    <label for="rating">Rating (1-5):</label>
+    <select id="rating" name="rating" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select><br>
+
+    <button type="submit">Add Comment</button>
+</form>
+
 <a href="/books/">Back to list</a>
 </body>
 </html>

@@ -1,9 +1,7 @@
 package com.example.goodreads.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -13,10 +11,11 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
-    private int rating;
-    private String comments;
 
-    // Gettery i settery
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL) // Ustawienie relacji 1:N z Comment
+    private List<Comment> comments;
+
+    // Gettery i Settery
     public Long getId() {
         return id;
     }
@@ -49,19 +48,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public String getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 }
