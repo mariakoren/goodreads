@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -49,6 +51,24 @@ public class AdminController {
     public String deleteUser(@PathVariable Integer id) {
         userService.deleteUserById(id);
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/books")
+    public String listAllBooks(Model model) {
+        List<Book> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "book-list-admin";
+    }
+
+    @PostMapping("/books/delete/{id}")
+    public String deleteBook(@PathVariable Long id, Model model) {
+        try {
+            bookService.deleteBookById(id);
+            model.addAttribute("message", "Book with ID " + id + " and its comments have been deleted.");
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/books";
     }
 
 

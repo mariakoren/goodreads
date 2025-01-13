@@ -5,6 +5,7 @@ import com.example.goodreads.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -28,5 +29,14 @@ public class BookService {
 
     public Book findBookById(int id) {
         return bookRepository.findById(id);
+    }
+
+    public void deleteBookById(Long id) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isPresent()) {
+            bookRepository.delete(bookOptional.get());
+        } else {
+            throw new IllegalArgumentException("Book with ID " + id + " not found");
+        }
     }
 }
