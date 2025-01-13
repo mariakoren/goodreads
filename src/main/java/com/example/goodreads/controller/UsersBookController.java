@@ -83,4 +83,23 @@ public class UsersBookController {
 
         return "redirect:/usersBooks/list?userId=" + userId;
     }
+
+    @GetMapping("/statusCounts")
+    public String getBooksStatusCounts(Model model) {
+        List<Book> allBooks = bookRepository.findAll();
+        Map<String, Map<String, Integer>> booksStatusCounts = new HashMap<>();
+
+        for (Book book : allBooks) {
+            int readedCount = usersBookRepository.countByBookIdAndStatus(book.getId(), UsersBook.Status.READED);
+            int wantReadCount = usersBookRepository.countByBookIdAndStatus(book.getId(), UsersBook.Status.WANT_READ);
+
+            Map<String, Integer> statusCounts = new HashMap<>();
+            statusCounts.put("READED", readedCount);
+            statusCounts.put("WANT_READ", wantReadCount);
+
+            booksStatusCounts.put(book.getTitle(), statusCounts);
+        }
+        model.addAttribute("booksStatusCounts", booksStatusCounts);
+        return "book-status-counts";
+    }
 }

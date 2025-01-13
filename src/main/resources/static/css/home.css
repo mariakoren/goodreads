@@ -66,5 +66,41 @@ input[type="text"]:focus {
     box-shadow: 0 0 5px 2px rgba(123, 44, 191, 0.8);
 }
 
+table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    color: #f3e8ff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+table th {
+    background-color: rgba(123, 44, 191, 0.8);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+table tr:hover {
+    background-color: rgba(123, 44, 191, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+table caption {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
 

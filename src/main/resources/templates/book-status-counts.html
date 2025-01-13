@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Counts</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>Books and Status Counts</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Book Title</th>
+        <th>Readed</th>
+        <th>Want to Read</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterowanie przez mapę książek i statusów -->
+    <th:block th:each="entry : ${booksStatusCounts}">
+        <tr>
+            <td th:text="${entry.key}">Book Title</td>
+            <td th:text="${entry.value['READED']}">0</td>
+            <td th:text="${entry.value['WANT_READ']}">0</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<a href="/admin/">Go Back</a>
+</body>
+</html>
