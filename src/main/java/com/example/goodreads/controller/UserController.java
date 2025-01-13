@@ -2,6 +2,7 @@ package com.example.goodreads.controller;
 
 import com.example.goodreads.model.UserDtls;
 import com.example.goodreads.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,9 +37,18 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String editUserProfile(UserDtls user, @AuthenticationPrincipal UserDetails userDetails) {
+    public String editUserProfile(UserDtls user, @AuthenticationPrincipal UserDetails userDetails, HttpSession session) {
         String email = userDetails.getUsername();
         UserDtls existingUser = userService.getUserByEmail(email);
+
+        if (user.getFullName().isEmpty()){
+            session.setAttribute("msg", "Full name is empty");
+            return "redirect:/user/edit";
+        }
+        if (user.getAddress().isEmpty()){
+            session.setAttribute("msg", "Address is empty");
+            return "redirect:/user/edit";
+        }
 
         existingUser.setFullName(user.getFullName());
         existingUser.setAddress(user.getAddress());

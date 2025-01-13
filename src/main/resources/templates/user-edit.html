@@ -12,9 +12,12 @@
 <a href="/logout">Logout</a>
 <section>
   <h1>Edit Profile</h1>
+  <th:block th:if="${session.msg}">
+    <p th:text="${session.msg}"></p>
+  </th:block>
   <form th:action="@{/user/edit}" th:object="${user}" method="post">
     <label for="fullName">Full Name:</label>
-    <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required>
+    <input type="text" id="fullName" name="fullName" th:value="${user.fullName}">
     <br>
     <label for="email">Email:</label>
     <input type="text" id="email" name="email" th:value="${user.email}" readonly>
