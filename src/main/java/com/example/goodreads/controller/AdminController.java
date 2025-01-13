@@ -53,12 +53,12 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/books")
-    public String listAllBooks(Model model) {
-        List<Book> books = bookService.getAllBooks();
-        model.addAttribute("books", books);
-        return "book-list-admin";
-    }
+//    @GetMapping("/books")
+//    public String listAllBooks(Model model) {
+//        List<Book> books = bookService.getAllBooks();
+//        model.addAttribute("books", books);
+//        return "book-list-admin";
+//    }
 
     @PostMapping("/books/delete/{id}")
     public String deleteBook(@PathVariable Long id, Model model) {

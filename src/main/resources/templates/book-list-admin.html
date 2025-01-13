@@ -26,6 +26,11 @@
             <form th:action="@{/admin/books/delete/{id}(id=${book.id})}" method="post">
                 <button type="submit">Delete</button>
             </form>
+
+            <a th:href="@{/admin/books/{id}(id=${book.id})}">
+                <button type="button">Wyświetl szczegóły</button>
+            </a>
+
         </td>
     </tr>
     </tbody>

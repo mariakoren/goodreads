@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Details</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>Book Details</h1>
+<p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+<p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+
+<h2>Comments</h2>
+<div th:if="${comments != null}">
+  <div th:each="comment : ${comments}">
+    <p><strong>Rating:</strong> <span th:text="${comment.rating}"></span></p>
+    <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
+
+    <form th:action="@{/admin/books/deleteComment}" method="post">
+      <input type="hidden" th:value="${comment.id}" name="commentId"/>
+      <input type="hidden" th:value="${book.id}" name="bookId"/>
+      <button type="submit">Delete Comment</button>
+    </form>
+    <hr/>
+  </div>
+</div>
+<div th:if="${comments == null or comments.size() == 0}">
+  <p>No comments available for this book.</p>
+</div>
+
+<a href="/admin/books">Back to list</a>
+</body>
+</html>
