@@ -102,4 +102,49 @@ public class UsersBookController {
         model.addAttribute("booksStatusCounts", booksStatusCounts);
         return "book-status-counts";
     }
+
+    @GetMapping("/userStatusCounts")
+    public String getUserStatusCounts(Model model) {
+        List<UserDtls> allUsers = userDtlsRepository.findAll(); // Zmieniając 'userRepository' na odpowiedni repozytorium użytkowników
+        List<Book> allBooks = bookRepository.findAll(); // Pobieramy wszystkie książki z bazy danych
+        int totalBooksInDatabase = allBooks.size(); // Całkowita liczba książek w bazie danych
+
+        // Zliczamy książki w poszczególnych statusach w całej bazie
+        int totalReadedCount = usersBookRepository.countByStatus(UsersBook.Status.READED);
+        int totalWantReadCount = usersBookRepository.countByStatus(UsersBook.Status.WANT_READ);
+
+        // Obliczamy procenty książek w statusie READED i WANT_READ względem wszystkich książek w bazie
+        double totalReadedPercentage = totalBooksInDatabase > 0 ? (totalReadedCount / (double) totalBooksInDatabase) * 100 : 0;
+        double totalWantReadPercentage = totalBooksInDatabase > 0 ? (totalWantReadCount / (double) totalBooksInDatabase) * 100 : 0;
+
+        // Tworzymy mapę dla danych o użytkownikach
+        Map<String, Map<String, Object>> userStatusCounts = new HashMap<>();
+
+        for (UserDtls user : allUsers) {
+            int readedCount = usersBookRepository.countByUserIdAndStatus(user.getId(), UsersBook.Status.READED);
+            int wantReadCount = usersBookRepository.countByUserIdAndStatus(user.getId(), UsersBook.Status.WANT_READ);
+
+            // Obliczamy procenty książek w poszczególnych statusach dla danego użytkownika względem całkowitej liczby książek w bazie
+            double readedPercentage = totalBooksInDatabase > 0 ? (readedCount / (double) totalBooksInDatabase) * 100 : 0;
+            double wantReadPercentage = totalBooksInDatabase > 0 ? (wantReadCount / (double) totalBooksInDatabase) * 100 : 0;
+
+            Map<String, Object> statusCounts = new HashMap<>();
+            statusCounts.put("READED_COUNT", readedCount);
+            statusCounts.put("WANT_READ_COUNT", wantReadCount);
+            statusCounts.put("READED_PERCENTAGE", readedPercentage);
+            statusCounts.put("WANT_READ_PERCENTAGE", wantReadPercentage);
+
+            userStatusCounts.put(user.getEmail(), statusCounts);  // Można zmienić 'user.getUsername()' na inny identyfikator, jeśli chcesz
+        }
+
+        // Dodajemy również całkowite statystyki książek w bazie
+        model.addAttribute("totalReadedCount", totalReadedCount);
+        model.addAttribute("totalWantReadCount", totalWantReadCount);
+        model.addAttribute("totalReadedPercentage", totalReadedPercentage);
+        model.addAttribute("totalWantReadPercentage", totalWantReadPercentage);
+
+        // Przekazujemy dane do widoku
+        model.addAttribute("userStatusCounts", userStatusCounts);
+        return "user-status-counts";
+    }
 }

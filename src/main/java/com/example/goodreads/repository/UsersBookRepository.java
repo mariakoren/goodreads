@@ -17,4 +17,8 @@ public interface UsersBookRepository extends JpaRepository<UsersBook, Long> {
     List<UsersBook> findByUser(UserDtls user);
 
     int countByBookIdAndStatus(Long bookId, Status status);
+
+    int countByUserIdAndStatus(int id, Status status);
+
+    int countByStatus(Status status);
 }

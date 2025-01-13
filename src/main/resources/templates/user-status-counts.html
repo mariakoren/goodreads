@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Status Counts</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h1>User and Book Status Counts</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Readed</th>
+    <th>Readed (%)</th>
+    <th>Want to Read</th>
+    <th>Want to Read (%)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterowanie przez mapę użytkowników i statusów -->
+  <th:block th:each="entry : ${userStatusCounts}">
+    <tr>
+      <td th:text="${entry.key}">User</td>
+      <td th:text="${entry.value['READED_COUNT']}">0</td>
+      <td th:text="${entry.value['READED_PERCENTAGE']}">0%</td>
+      <td th:text="${entry.value['WANT_READ_COUNT']}">0</td>
+      <td th:text="${entry.value['WANT_READ_PERCENTAGE']}">0%</td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+<a href="/admin/">Go Back</a>
+</body>
+</html>
