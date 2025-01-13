@@ -39,4 +39,11 @@ public class BookService {
             throw new IllegalArgumentException("Book with ID " + id + " not found");
         }
     }
+
+    public void updateBook(int id, Book updatedBook) {
+        Book existingBook = findBookById(id);
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        bookRepository.save(existingBook);  // Save updated book
+    }
 }

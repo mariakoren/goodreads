@@ -37,6 +37,20 @@ public class AdminBookController {
         return "book-details-admin";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editBookForm(@PathVariable("id") int id, Model model) {
+        Book book = bookService.findBookById(id);
+        model.addAttribute("book", book);
+        return "book-edit-form";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String saveEditedBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
+        // Zapisz zmienioną książkę
+        bookService.updateBook(id, book);
+        return "redirect:/admin/books";
+    }
+
     @PostMapping("/deleteComment")
     public String deleteComment(@RequestParam("commentId") Long commentId,
                                 @RequestParam("bookId") Long bookId,

@@ -11,6 +11,18 @@
 <h1>Users Books</h1>
 
 
+<form method="get" action="/usersBooks/list">
+  <label for="statusFilter">Filter by Status: </label>
+  <select name="statusFilter" id="statusFilter">
+    <option value="ALL" th:selected="${statusFilter == 'ALL'}">All</option>
+    <option value="READED" th:selected="${statusFilter == 'READED'}">Read</option>
+    <option value="WANT_READ" th:selected="${statusFilter == 'WANT_READ'}">Want to Read</option>
+    <option value="UNREAD" th:selected="${statusFilter == 'UNREAD'}">Unread</option>
+  </select>
+  <input type="hidden" name="userId" th:value="${userId}">
+  <button type="submit">Apply Filter</button>
+</form>
+
 <table>
   <thead>
   <tr>
@@ -29,9 +41,9 @@
       <form th:action="@{/usersBooks/updateStatus}" method="post">
         <input type="hidden" th:value="${book.id}" name="bookId">
         <input type="hidden" th:value="${userId}" name="userId">
-        <button type="submit" name="newStatus" value="READED">Zaznacz jako przeczytana</button>
-        <button type="submit" name="newStatus" value="WANT_READ">Chętnie przeczytam</button>
-        <button type="submit" name="newStatus" value="UNREAD">Nieprzeczytane</button>
+        <button type="submit" name="newStatus" value="READED">Mark as Read</button>
+        <button type="submit" name="newStatus" value="WANT_READ">Want to Read</button>
+        <button type="submit" name="newStatus" value="UNREAD">Unread</button>
       </form>
     </td>
   </tr>
