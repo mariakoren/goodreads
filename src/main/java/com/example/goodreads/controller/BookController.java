@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping("/user/books")
 public class BookController {
     private final BookService bookService;
 
@@ -51,12 +51,12 @@ public class BookController {
                              Model model) {
         if (rating < 1 || rating > 5) {
             model.addAttribute("error", "Rating must be between 1 and 5.");
-            return "redirect:/books/" + bookId;
+            return "redirect:/user/books/" + bookId;
         }
 
         commentService.addComment(bookId, content, rating);
 
-        return "redirect:/books/" + bookId;
+        return "redirect:/user/books/" + bookId;
     }
 
 

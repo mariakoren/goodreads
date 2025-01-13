@@ -9,7 +9,7 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <h1>Lista Książek</h1>
-<form action="/books/search" method="get">
+<form action="/user/books/search" method="get">
   <label for="title">Szukaj po tytule:</label>
   <input type="text" id="title" name="title">
   <button type="submit">Szukaj</button>
@@ -31,13 +31,13 @@
     <td th:text="${book.isbn}"></td>
     <td>
 
-      <a th:href="@{/books/{id}(id=${book.id})}">
+      <a th:href="@{/user/books/{id}(id=${book.id})}">
         <button type="button">Wyświetl szczegóły</button>
       </a>
     </td>
   </tr>
   </tbody>
 </table>
-<a href="/">Wróć do strony głównej</a>
+<a href="/user/">Go Back</a>
 </body>
 </html>

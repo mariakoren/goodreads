@@ -25,7 +25,7 @@
 </div>
 
 <h2>Add a Comment</h2>
-<form action="/books/addComment" method="post">
+<form action="/user/books/addComment" method="post">
     <input type="hidden" name="bookId" th:value="${book.id}" />
     <label for="content">Comment:</label>
     <textarea id="content" name="content" required></textarea><br>
@@ -42,6 +42,6 @@
     <button type="submit">Add Comment</button>
 </form>
 
-<a href="/books/">Back to list</a>
+<a href="/user/books/">Back to list</a>
 </body>
 </html>
