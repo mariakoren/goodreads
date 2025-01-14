@@ -3,12 +3,19 @@ package com.example.goodreads.controller;
 import com.example.goodreads.model.Book;
 import com.example.goodreads.service.BookService;
 import com.example.goodreads.service.CommentService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/user/books")
@@ -49,11 +56,19 @@ public class BookController {
                              @RequestParam("content") String content,
                              @RequestParam("rating") int rating,
                              Model model) {
-        if (rating < 1 || rating > 5) {
-            model.addAttribute("error", "Rating must be between 1 and 5.");
+
+        if (content == null || content.isEmpty()) {
+            model.addAttribute("error", "Content of comment cannot be empty");
             return "redirect:/user/books/" + bookId;
         }
-
+        if (content.length() > 50) {
+            model.addAttribute("error", "Content of comment must not exceed 50 characters");
+            return "redirect:/user/books/" + bookId;
+        }
+        if (rating < 1 || rating > 5) {
+            model.addAttribute("error", "Rating must be between 1 and 5");
+            return "redirect:/user/books/" + bookId;
+        }
         commentService.addComment(bookId, content, rating);
 
         return "redirect:/user/books/" + bookId;

@@ -3,15 +3,19 @@ package com.example.goodreads.controller;
 import com.example.goodreads.model.UserDtls;
 import com.example.goodreads.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/user")
@@ -37,18 +41,19 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String editUserProfile(UserDtls user, @AuthenticationPrincipal UserDetails userDetails, HttpSession session) {
+    public String editUserProfile(
+            @Valid UserDtls user,
+            BindingResult bindingResult,
+            @AuthenticationPrincipal UserDetails userDetails,
+            HttpSession session) {
+
+        if (bindingResult.hasErrors()) {
+            session.setAttribute("msg", Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            return "redirect:/user/edit";
+        }
+
         String email = userDetails.getUsername();
         UserDtls existingUser = userService.getUserByEmail(email);
-
-        if (user.getFullName().isEmpty()){
-            session.setAttribute("msg", "Full name is empty");
-            return "redirect:/user/edit";
-        }
-        if (user.getAddress().isEmpty()){
-            session.setAttribute("msg", "Address is empty");
-            return "redirect:/user/edit";
-        }
 
         existingUser.setFullName(user.getFullName());
         existingUser.setAddress(user.getAddress());

@@ -1,47 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Details</title>
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<h1>Book Details</h1>
-<p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
-<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
-<p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+<main>
+    <h1>Book Details</h1>
+    <section>
+        <p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+        <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+    </section>
 
-<h2>Comments</h2>
-<div th:if="${comments != null}">
-    <div th:each="comment : ${comments}">
-        <p><strong>Rating:</strong> <span th:text="${comment.rating}"></span></p>
-        <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
-        <hr/>
-    </div>
-</div>
-<div th:if="${comments == null or comments.size() == 0}">
-    <p>No comments available for this book.</p>
-</div>
+    <section>
+        <h2>Comments</h2>
+        <div th:if="${comments != null and !comments.isEmpty()}">
+            <div th:each="comment : ${comments}">
+                <p><strong>Rating:</strong> <span th:text="${comment.rating}"></span></p>
+                <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
+                <hr/>
+            </div>
+        </div>
+        <div th:if="${comments == null or comments.isEmpty()}">
+            <p>No comments available for this book.</p>
+        </div>
+    </section>
 
-<h2>Add a Comment</h2>
-<form action="/user/books/addComment" method="post">
-    <input type="hidden" name="bookId" th:value="${book.id}" />
-    <label for="content">Comment:</label>
-    <textarea id="content" name="content" required></textarea><br>
+    <section>
+        <h2>Add a Comment</h2>
 
-    <label for="rating">Rating (1-5):</label>
-    <select id="rating" name="rating" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select><br>
+        <form action="/user/books/addComment" method="post">
+            <input type="hidden" name="bookId" th:value="${book.id}" />
 
-    <button type="submit">Add Comment</button>
-</form>
+            <div>
+                <label for="content">Comment:</label>
+                <textarea id="content" name="content" required></textarea>
+            </div>
 
-<a href="/user/books/">Back to list</a>
+            <div>
+                <label for="rating">Rating (1-5):</label>
+                <select id="rating" name="rating" required>
+                    <option value="" disabled selected>Select a rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <button type="submit">Add Comment</button>
+        </form>
+    </section>
+
+    <section>
+        <a href="/user/books/">Back to list</a>
+    </section>
+</main>
 </body>
 </html>
