@@ -10,7 +10,7 @@ public class Book {
     private Long id;
     private String title;
     private String author;
-    private String isbn;
+    private String description;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<UsersBook> usersBooks;
@@ -42,12 +42,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<UsersBook> getUsersBooks() {

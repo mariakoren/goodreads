@@ -20,7 +20,6 @@
   <tr>
     <th>Tytuł</th>
     <th>Autor</th>
-    <th>ISBN</th>
     <th>Akcje</th>
   </tr>
   </thead>
@@ -28,7 +27,6 @@
   <tr th:each="book : ${books}">
     <td th:text="${book.title}"></td>
     <td th:text="${book.author}"></td>
-    <td th:text="${book.isbn}"></td>
     <td>
 
       <a th:href="@{/user/books/{id}(id=${book.id})}">

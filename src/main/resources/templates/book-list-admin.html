@@ -23,17 +23,14 @@
         <td th:text="${book.title}"></td>
         <td th:text="${book.author}"></td>
         <td>
-            <!-- Delete button -->
             <form th:action="@{/admin/books/delete/{id}(id=${book.id})}" method="post">
                 <button type="submit">Delete</button>
             </form>
 
-            <!-- View details button -->
             <a th:href="@{/admin/books/{id}(id=${book.id})}">
                 <button type="button">Wyświetl szczegóły</button>
             </a>
 
-            <!-- Edit button -->
             <a th:href="@{/admin/books/edit/{id}(id=${book.id})}">
                 <button type="button">Edit</button>
             </a>
