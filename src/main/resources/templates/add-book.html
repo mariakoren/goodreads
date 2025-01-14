@@ -10,15 +10,25 @@
 <form action="/admin/add-book" method="post">
   <label for="title">Title:</label>
   <input type="text" id="title" name="title" required>
+  <br>
+  <span th:if="${titleError}" th:text="${titleError}" style="color:red;"></span>
   <br><br>
+
   <label for="author">Author:</label>
   <input type="text" id="author" name="author" required>
+  <br>
+  <span th:if="${authorError}" th:text="${authorError}" style="color:red;"></span>
   <br><br>
+
   <label for="description">Description:</label>
   <input type="text" id="description" name="description" required>
+  <br>
+  <span th:if="${descriptionError}" th:text="${descriptionError}" style="color:red;"></span>
   <br><br>
+
   <button type="submit">Add</button>
 </form>
+
 <a href="/admin/">Go Back</a>
 </body>
 </html>

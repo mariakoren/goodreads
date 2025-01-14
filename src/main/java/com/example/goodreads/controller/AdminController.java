@@ -34,7 +34,21 @@ public class AdminController {
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute Book book) {
+    public String addBook(@ModelAttribute Book book, Model model) {
+        // Walidacja długości pól
+        if (book.getTitle().length() < 5 || book.getTitle().length() > 100) {
+            model.addAttribute("titleError", "Title must be between 5 and 100 characters.");
+        }
+        if (book.getAuthor().length() < 5 || book.getAuthor().length() > 100) {
+            model.addAttribute("authorError", "Author must be between 5 and 100 characters.");
+        }
+        if (book.getDescription().length() < 10 || book.getDescription().length() > 500) {
+            model.addAttribute("descriptionError", "Description must be between 10 and 500 characters.");
+        }
+
+        if (model.containsAttribute("titleError") || model.containsAttribute("authorError") || model.containsAttribute("descriptionError")) {
+            return "add-book";
+        }
         bookService.saveBook(book);
         return "redirect:/admin/";
     }
