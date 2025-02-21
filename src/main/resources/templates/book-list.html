@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lista Książek</title>
+  <title>Book List</title>
   <link rel="stylesheet" href="/css/home.css">
   <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<h1>Lista Książek</h1>
+<h1>Book List</h1>
 <form action="/user/books/search" method="get">
-  <label for="title">Szukaj po tytule:</label>
+  <label for="title">Search by title:</label>
   <input type="text" id="title" name="title">
-  <button type="submit">Szukaj</button>
+  <button type="submit">Search</button>
 </form>
 <br>
 <table>
   <thead>
   <tr>
-    <th>Tytuł</th>
-    <th>Autor</th>
-    <th>Akcje</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -30,7 +30,7 @@
     <td>
 
       <a th:href="@{/user/books/{id}(id=${book.id})}">
-        <button type="button">Wyświetl szczegóły</button>
+        <button type="button">Show details</button>
       </a>
     </td>
   </tr>

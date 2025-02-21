@@ -40,6 +40,12 @@ public class HomeController {
             BindingResult bindingResult,
             HttpSession session) {
 
+        String emailRegex = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        if (!user.getEmail().matches(emailRegex)) {
+            session.setAttribute("msg", "Invalid email format");
+            return "redirect:/register";
+        }
+
         if (user.getPassword().isEmpty()) {
             session.setAttribute("msg", "Password is empty");
             return "redirect:/register";
